@@ -33,4 +33,11 @@
         <item>中药</item>
         <item>西药</item>
     </string-array>
+    <string-array name="select_dialog_items2">
+        <item>心力衰竭</item>
+        <item>心内科护理常规</item>
+        <item>ICU内科</item>
+        <item>脑梗死护理</item>
+        <item>脑梗死医嘱</item>
+    </string-array>
 </resources>

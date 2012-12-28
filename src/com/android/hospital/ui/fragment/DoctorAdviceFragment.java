@@ -15,7 +15,10 @@ import com.android.hospital.ui.activity.MainActivity;
 import com.android.hospital.ui.activity.R;
 import com.android.hospital.util.DebugUtil;
 
+import android.R.menu;
+import android.app.AlertDialog;
 import android.app.ListFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -112,7 +115,30 @@ public class DoctorAdviceFragment extends ListFragment {
 				Toast.makeText(getActivity(), "请先选择病人!", Toast.LENGTH_SHORT).show();//可根据左边病人listview是否有被选中判断
 			}			
 			break;
+		case Menu.FIRST+1:
+			new AlertDialog.Builder(getActivity())
+        .setIconAttribute(android.R.attr.alertDialogIcon)
+        .setTitle("医嘱模板")
+        .setSingleChoiceItems(R.array.select_dialog_items2, 0, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
 
+                /* User clicked on a radio button do some stuff */
+            }
+        })
+        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+                /* User clicked Yes so do some stuff */
+            }
+        })
+        .setNegativeButton("", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+                /* User clicked No so do some stuff */
+            }
+        })
+       .create().show();
+		break;
 		default:
 			break;
 		}

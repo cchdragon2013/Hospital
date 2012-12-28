@@ -20,10 +20,14 @@ public class MyProssDialog {
 		mDialog=new ProgressDialog(context);
 		mDialog.setTitle(title);
 		mDialog.setMessage(content);
-		mDialog.show();
+		mDialog.show();		
 	}
 
 	public void cancel(){
 		mDialog.cancel();
+	}
+	
+	public void setCancelable(){
+		mDialog.setCancelable(false);
 	}
 }

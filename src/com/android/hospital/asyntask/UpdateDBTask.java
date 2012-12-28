@@ -49,8 +49,8 @@ public class UpdateDBTask extends BaseAsyncTask{
 	@Override
 	protected void onPreExecute() {
         mDialog=new MyProssDialog(mActivity, "更新", "正在更新数据库，请稍候...");
+        mDialog.setCancelable();
 	}
-
 	
 	@Override
 	protected Object doInBackground(Object... params) {

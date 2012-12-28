@@ -5,6 +5,7 @@ import com.android.hospital.adapter.CheckAdapter;
 import com.android.hospital.constant.AppConstant;
 import com.android.hospital.ui.activity.AddCheckActivity;
 import com.android.hospital.ui.activity.AddDcAdviceActivity;
+import com.android.hospital.ui.activity.CheckdetailActivity;
 import com.android.hospital.ui.activity.MainActivity;
 import com.android.hospital.ui.activity.R;
 import com.android.hospital.util.DebugUtil;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 /**
  * 
@@ -89,5 +91,14 @@ public class CheckFragment extends ListFragment {
 			HospitalApp app=(HospitalApp) mainActivity.getApplication();
 			mainActivity.putCheckTask(app.getPatientEntity());
 		}
+	}
+	
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		// TODO Auto-generated method stub
+		super.onListItemClick(l, v, position, id);
+		Intent intent=new Intent();
+		intent.setClass(getActivity(), CheckdetailActivity.class);
+		startActivity(intent);
 	}
 }

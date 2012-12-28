@@ -24,6 +24,7 @@
 <color name="lightsalmon">#ffa07a</color><!--亮肉色 -->   
 <color name="darkorange">#ff8c00</color><!--暗桔黄色 -->   
 <color name="coral">#ff7f50</color><!--珊瑚色 -->   
+<color name="traffic_txt">#ff414141</color>
 <color name="hotpink">#ff69b4</color><!--热粉红色 -->   
 <color name="tomato">#ff6347</color><!--西红柿色 -->   
 <color name="orangered">#ff4500</color><!--红橙色 -->   
