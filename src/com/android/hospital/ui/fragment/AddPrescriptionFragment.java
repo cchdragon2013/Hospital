@@ -454,10 +454,11 @@ public class AddPrescriptionFragment extends BaseFragment implements OnClickList
 			buffer.append("'"+itemEntity.administration).append("',");
 			buffer.append("'"+itemEntity.dosage).append("',");
 			buffer.append("'"+itemEntity.dose_units).append("',");
+			buffer.append("'"+"").append("',");
 			buffer.append("'"+itemEntity.frequency).append("',");
 			buffer.append("'"+itemEntity.dosage_each).append("',");
 			buffer.append("'"+itemEntity.freq_detail).append("',");
-			buffer.append("'"+itemEntity.is_basic.trim()).append("',");
+			buffer.append("'"+itemEntity.is_basic.trim()).append("')");
 			WebServiceHelper.insertWebServiceData(buffer.toString());
 		}
 	}
