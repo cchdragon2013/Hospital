@@ -34,6 +34,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 /**
  * 
 * @ClassName: AddDcAdviceFragment 
@@ -101,6 +102,10 @@ public class AddCheckFragment extends BaseFragment implements OnItemSelectedList
 	@Override
 	public boolean validate() {
 		// TODO Auto-generated method stub
+		if (adapter.getCount()!=0) {
+			return true;
+		}
+		Toast.makeText(getActivity(), "请选择项目!", Toast.LENGTH_SHORT).show();
 		return false;
 	}
 
@@ -283,7 +288,7 @@ public class AddCheckFragment extends BaseFragment implements OnItemSelectedList
 		checkBuffer.append("'"+mSubClassSp.getItemAtPosition(mSubClassSp.getSelectedItemPosition())).append("',");
 		checkBuffer.append("'"+mSymptomEdit.getText().toString()).append("',");
 		checkBuffer.append("'"+mSignsEdit.getText().toString()).append("',");
-		checkBuffer.append("'"+mDeptList.get(mDeptSp.getSelectedItemPosition())).append("',");
+		checkBuffer.append("'"+mDeptList.get(mDeptSp.getSelectedItemPosition()).get("performed_by")).append("',");//科室代码
 		checkBuffer.append("'"+"2").append("',");
 		checkBuffer.append("'"+"").append("',");
 		checkBuffer.append("TO_DATE('"+req_date_time).append("','yyyy-MM-dd hh24:mi:ss'),");

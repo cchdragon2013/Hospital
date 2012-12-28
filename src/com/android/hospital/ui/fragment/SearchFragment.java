@@ -60,6 +60,7 @@ public abstract class SearchFragment extends Fragment implements SearchView.OnQu
         mSearchView.setOnQueryTextListener(this);
         mSearchView.setSubmitButtonEnabled(false);
         mSearchView.setQueryHint("«Î ‰»Î");
+        mListView.setFastScrollEnabled(true);
         return view;
 	}
 	

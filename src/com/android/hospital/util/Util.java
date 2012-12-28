@@ -51,7 +51,7 @@ public class Util {
 		SimpleDateFormat format=new SimpleDateFormat("yyMMdd");
 		Date date=new Date(System.currentTimeMillis());//获取当前时间
 		String str=format.format(date);
-		return dateStr+str;
+		return str+dateStr;
 	}
 	
 	

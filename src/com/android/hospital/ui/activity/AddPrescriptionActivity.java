@@ -139,7 +139,9 @@ public class AddPrescriptionActivity extends Activity implements OnClickListener
 		protected void onPostExecute(String result) {
 			// TODO Auto-generated method stub
 			mDialog.cancel();
-			AddPrescriptionActivity.this.finish();
+			Intent intent=new Intent();
+			setResult(14, intent);
+			finish();
 		}
 	}
 }

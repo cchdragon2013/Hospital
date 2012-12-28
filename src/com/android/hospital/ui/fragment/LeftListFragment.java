@@ -52,6 +52,7 @@ public class LeftListFragment extends ListFragment{
 	public void onStart() {
 		// TODO Auto-generated method stub
 		getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		getListView().setFastScrollEnabled(true);
 		super.onStart();
 	}
 	

@@ -130,9 +130,12 @@ public class PrescriptionLeftItemAdapter extends BaseAdapter{
 		tev9.setText(item.package_units);
 		tev10.setText(item.purchase_price);
 		tev11.setText(item.purchase_price);
-		spinner6.setAdapter(wayAdapter);
-		spinner7.setAdapter(freqAdapter);
-		
+		if (spinner6.getAdapter()==null) {
+			spinner6.setAdapter(wayAdapter);
+		}
+		if (spinner7.getAdapter()==null) {
+			spinner7.setAdapter(freqAdapter);
+		}				
 		return convertView;
 	}
 }

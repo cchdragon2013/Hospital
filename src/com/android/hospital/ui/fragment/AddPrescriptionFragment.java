@@ -400,9 +400,11 @@ public class AddPrescriptionFragment extends BaseFragment implements OnClickList
 		prescriptionBuffer.append("'"+"0").append("',");
 		prescriptionBuffer.append("'"+"").append("',");
 		prescriptionBuffer.append("'"+count_per_repetition).append("',");
+		prescriptionBuffer.append("'"+usage).append("',");
 		prescriptionBuffer.append("'"+binding_presc_title).append("',");
 		prescriptionBuffer.append("'"+discharge_taking_indicator).append("',");
 		prescriptionBuffer.append("'"+"doctor_user").append("',");//主治医生代码
+		prescriptionBuffer.append("'"+decoction).append("',");
 		prescriptionBuffer.append("'"+"").append("',");
 		prescriptionBuffer.append("'"+app.getPatientEntity().diagnosis).append("')");
 		WebServiceHelper.insertWebServiceData(prescriptionBuffer.toString());
@@ -411,7 +413,7 @@ public class AddPrescriptionFragment extends BaseFragment implements OnClickList
 			int item_no=i+1;
 			DrugEntity itemEntity=insertList.get(i);
 			StringBuffer buffer=new StringBuffer();
-			buffer.append("insert into doct_drug_presc_detail" + "(presc_date,"
+			buffer.append("insert into doct_drug_presc_detail" + " (presc_date,"
 					+ // 处方日期（系统时间）
 					"presc_no," + // 处方号
 					"item_no," + // 项目序号（自动编号，从1开始）
@@ -436,26 +438,26 @@ public class AddPrescriptionFragment extends BaseFragment implements OnClickList
 					"is_basic) " + // 是否为基药（不是为空，基药填1）
 					"values(");
 			buffer.append("TO_DATE('"+start_date_time).append("','yyyy-MM-dd hh24:mi:ss'),");
-			prescriptionBuffer.append("'"+presc_no).append("',");
-			prescriptionBuffer.append("'"+item_no).append("',");
-			prescriptionBuffer.append("'"+"").append("',");
-			prescriptionBuffer.append("'"+"").append("',");
-			prescriptionBuffer.append("'"+itemEntity.drug_code).append("',");
-			prescriptionBuffer.append("'"+itemEntity.drug_spec).append("',");
-			prescriptionBuffer.append("'"+itemEntity.drug_name).append("',");
-			prescriptionBuffer.append("'"+itemEntity.firm_id).append("',");
-			prescriptionBuffer.append("'"+itemEntity.package_spec).append("',");
-			prescriptionBuffer.append("'"+itemEntity.package_units).append("',");
-			prescriptionBuffer.append("'"+itemEntity.quantity).append("',");
-			prescriptionBuffer.append("'"+itemEntity.single_price).append("',");
-			prescriptionBuffer.append("'"+itemEntity.single_price).append("',");
-			prescriptionBuffer.append("'"+itemEntity.administration).append("',");
-			prescriptionBuffer.append("'"+itemEntity.dosage).append("',");
-			prescriptionBuffer.append("'"+itemEntity.dose_units).append("',");
-			prescriptionBuffer.append("'"+itemEntity.frequency).append("',");
-			prescriptionBuffer.append("'"+itemEntity.dosage_each).append("',");
-			prescriptionBuffer.append("'"+itemEntity.freq_detail).append("',");
-			prescriptionBuffer.append("'"+itemEntity.is_basic.trim()).append("',");
+			buffer.append("'"+presc_no).append("',");
+			buffer.append("'"+item_no).append("',");
+			buffer.append("'"+"").append("',");
+			buffer.append("'"+"").append("',");
+			buffer.append("'"+itemEntity.drug_code).append("',");
+			buffer.append("'"+itemEntity.drug_spec).append("',");
+			buffer.append("'"+itemEntity.drug_name).append("',");
+			buffer.append("'"+itemEntity.firm_id).append("',");
+			buffer.append("'"+itemEntity.package_spec).append("',");
+			buffer.append("'"+itemEntity.package_units).append("',");
+			buffer.append("'"+itemEntity.quantity).append("',");
+			buffer.append("'"+itemEntity.single_price).append("',");
+			buffer.append("'"+itemEntity.single_price).append("',");
+			buffer.append("'"+itemEntity.administration).append("',");
+			buffer.append("'"+itemEntity.dosage).append("',");
+			buffer.append("'"+itemEntity.dose_units).append("',");
+			buffer.append("'"+itemEntity.frequency).append("',");
+			buffer.append("'"+itemEntity.dosage_each).append("',");
+			buffer.append("'"+itemEntity.freq_detail).append("',");
+			buffer.append("'"+itemEntity.is_basic.trim()).append("',");
 			WebServiceHelper.insertWebServiceData(buffer.toString());
 		}
 	}

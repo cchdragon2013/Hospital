@@ -38,10 +38,13 @@ public class CheckTask extends BaseAsyncTask{
 
 	@Override
 	protected void onPostExecute(Object result) {
-
+        
 		if (arrayList.size()!=0) {
 			CheckAdapter adapter=new CheckAdapter(mFragment.getActivity(), arrayList);
 			mFragment.setListAdapter(adapter);
+			if (mFragment.isAdded()) {
+				mFragment.setSelection(adapter.getCount()-1);
+			}
 		}
 	}
 }

@@ -1,10 +1,13 @@
 package com.android.hospital.ui.fragment;
 
+import com.android.hospital.HospitalApp;
 import com.android.hospital.adapter.CheckAdapter;
 import com.android.hospital.constant.AppConstant;
 import com.android.hospital.ui.activity.AddCheckActivity;
 import com.android.hospital.ui.activity.AddDcAdviceActivity;
+import com.android.hospital.ui.activity.MainActivity;
 import com.android.hospital.ui.activity.R;
+import com.android.hospital.util.DebugUtil;
 
 import android.app.ListFragment;
 import android.content.Intent;
@@ -31,6 +34,7 @@ public class CheckFragment extends ListFragment {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		setHasOptionsMenu(true);
+		getListView().setFastScrollEnabled(true);
 	}
 	
 	@Override
@@ -48,12 +52,11 @@ public class CheckFragment extends ListFragment {
 			if (AppConstant.isPatientChoose) {
 				intent=new Intent();
 				intent.setClass(getActivity(), AddCheckActivity.class);
-				startActivity(intent);
+				startActivityForResult(intent, 12);
 			}else {
 				Toast.makeText(getActivity(), "请先选择病人!", Toast.LENGTH_SHORT).show();//可根据左边病人listview是否有被选中判断
 			}	
 			break;
-
 		default:
 			break;
 		}
@@ -72,6 +75,19 @@ public class CheckFragment extends ListFragment {
 	    CheckAdapter adapter=(CheckAdapter) getListAdapter();
 		if (null!=adapter&&adapter.getCount()!=0) {
 			adapter.clearAdapter();
+		}
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		DebugUtil.debug("resultCode---"+resultCode);
+		DebugUtil.debug("requestCode---"+requestCode);
+        if (resultCode==12) {
+			MainActivity mainActivity=(MainActivity) getActivity();
+			HospitalApp app=(HospitalApp) mainActivity.getApplication();
+			mainActivity.putCheckTask(app.getPatientEntity());
 		}
 	}
 }

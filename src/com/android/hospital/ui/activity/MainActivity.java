@@ -2,11 +2,14 @@ package com.android.hospital.ui.activity;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import com.android.hospital.adapter.CheckAdapter;
 import com.android.hospital.adapter.DcAdviceAdapter;
 import com.android.hospital.adapter.InspectionAdapter;
 import com.android.hospital.adapter.PrescriptionAdapter;
+import com.android.hospital.asyntask.BaseAsyncTask;
 import com.android.hospital.asyntask.CheckTask;
 import com.android.hospital.asyntask.DcAdviceTask;
 import com.android.hospital.asyntask.DepartmentTask;
@@ -28,10 +31,15 @@ import android.app.ActionBar.LayoutParams;
 import android.app.ActionBar.OnNavigationListener;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -46,11 +54,14 @@ import android.widget.Toast;
 * @date 2012-12-14 上午11:36:57 
 *
  */
-public class MainActivity extends Activity implements AsyncTaskCallback<PatientEntity>{
+public class MainActivity extends Activity implements AsyncTaskCallback<PatientEntity>{	
 	private LeftListFragment leftFm;
 	private Spinner mSpinner;
 	private TextView titleTev;
 	private ActionBar actionBar;
+	private List<AsyncTask> asyncTasks=null;
+	private PatientEntity patientEntity;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -68,6 +79,7 @@ public class MainActivity extends Activity implements AsyncTaskCallback<PatientE
 		}
 		ft.commit();
 		
+		asyncTasks=new ArrayList<AsyncTask>();
 		mSpinner=(Spinner) findViewById(R.id.main_left_department_spinner);
 		titleTev=(TextView) findViewById(R.id.main_patient_info_tev);
 		setSpinner();
@@ -173,6 +185,7 @@ public class MainActivity extends Activity implements AsyncTaskCallback<PatientE
 	public void getSingle(PatientEntity value) {
 		// TODO Auto-generated method stub
 		DebugUtil.debug("测试getSingle"+value.name);
+		this.patientEntity=value;
 		setTitleTev(value);
 		putDcAdviceTask(value);
 		putCheckTask(value);
@@ -197,6 +210,7 @@ public class MainActivity extends Activity implements AsyncTaskCallback<PatientE
 	* @throws
 	 */
 	public void putDcAdviceTask(PatientEntity value){
+		DebugUtil.debug("测试put");
 		DoctorAdviceFragment fragment=(DoctorAdviceFragment) getFragmentManager().findFragmentByTag("dcadvice");
 		if (fragment!=null) {
 			DcAdviceAdapter adapter=(DcAdviceAdapter) fragment.getListAdapter();
@@ -212,7 +226,7 @@ public class MainActivity extends Activity implements AsyncTaskCallback<PatientE
 			String[] whereArr=new String[]{"patient_id","visit_id"};
 			String[] paramArray2=new String[]{value.patient_id,value.visit_id};
 			String sql=ServerDao.getQuery(tableName, paramArray1, whereArr, paramArray2);
-			new DcAdviceTask(fragment, sql).execute();
+			putAsyncTask(new DcAdviceTask(fragment, sql).execute());
 		}
 		
 	}
@@ -238,7 +252,7 @@ public class MainActivity extends Activity implements AsyncTaskCallback<PatientE
 			String customWhere="where a.exam_no = b.exam_no and a.exam_no = c.exam_no and a.patient_id = '"+value.patient_id+"' "
 					           +"and a.visit_id = '"+value.visit_id+"'";
 			String sql=ServerDao.getQueryCustom(tableName, paramArray1, customWhere);
-			new CheckTask(fragment, sql).execute();
+			putAsyncTask(new CheckTask(fragment, sql).execute());
 		}
 		
 	}
@@ -270,7 +284,7 @@ public class MainActivity extends Activity implements AsyncTaskCallback<PatientE
 					+"order by LAB_TEST_ITEMS.TEST_NO,LAB_TEST_ITEMS.ITEM_NO  ";
 
 			String sql=ServerDao.getQueryCustom(tableName, paramArray1, customWhere);
-			new InspectionTask(fragment, sql).execute();
+			putAsyncTask(new InspectionTask(fragment, sql).execute());
 		}
 		
 	}
@@ -298,9 +312,75 @@ public class MainActivity extends Activity implements AsyncTaskCallback<PatientE
 			String customWhere="WHERE DOCT_DRUG_PRESC_MASTER.Dispensary = dept_dict.dept_code  and (PRESC_STATUS not in (2, 3))  AND (DOCT_DRUG_PRESC_MASTER.PATIENT_ID = '"+value.patient_id+"') "
 					           +"AND (DOCT_DRUG_PRESC_MASTER.COSTS >= 0)  order by PRESC_DATE";
 			String sql=ServerDao.getQueryCustom(tableName, paramArray1, customWhere);
-			new PrescriptionTask(fragment,sql).execute();
+			putAsyncTask(new PrescriptionTask(fragment,sql).execute());
 		}
 	}
+	
+	/**
+	 * 
+	* @Title: putAsyncTask 
+	* @Description: TODO(异步任务集合) 
+	* @param @param paramAsyncTask
+	* @param @return    设定文件 
+	* @return AsyncTask    返回类型 
+	* @throws
+	 */
+	protected AsyncTask putAsyncTask(AsyncTask paramAsyncTask){
+		asyncTasks.add(paramAsyncTask);
+		return paramAsyncTask;
+	}
+	
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		for (int i = 0; i < asyncTasks.size(); i++) {
+			AsyncTask localAsyncTask=(AsyncTask) asyncTasks.get(i);
+			if (!(localAsyncTask == null) || (localAsyncTask.isCancelled())) {
+				localAsyncTask.cancel(true);
+			}
+		}
+		
+		//另外一种方式
+		/*Iterator localIterator=this.asyncTasks.iterator();
+		if (!localIterator.hasNext()) {
+			return;
+		}
+		AsyncTask localAsyncTask = (AsyncTask)localIterator.next();
+		if ((localAsyncTask == null) || (localAsyncTask.isCancelled()))
+	        continue;
+	    localAsyncTask.cancel(true);*/
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			logout();
+			return true;
+		} else {
+			return super.onKeyDown(keyCode, event);
+		}
+	}
+	
+	// 注销系统
+	private void logout() {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			// .setIcon(R.);
+			builder.setMessage("真的要退出系统吗？").setCancelable(false)
+					.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							finish();
+						}
+					})
+					.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							dialog.cancel();
+						}
+					});
+			AlertDialog alert = builder.create();
+			alert.show();
+		}
 	
 	/*private void addCustomView() {
 	// TODO Auto-generated method stub

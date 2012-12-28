@@ -1,10 +1,12 @@
 package com.android.hospital.ui.fragment;
 
+import com.android.hospital.HospitalApp;
 import com.android.hospital.adapter.PrescriptionAdapter;
 import com.android.hospital.constant.AppConstant;
 import com.android.hospital.entity.PrescriptionEntity;
 import com.android.hospital.ui.activity.AddCheckActivity;
 import com.android.hospital.ui.activity.AddPrescriptionActivity;
+import com.android.hospital.ui.activity.MainActivity;
 import com.android.hospital.ui.activity.PrescriptiondetailActivity;
 import com.android.hospital.util.DebugUtil;
 
@@ -33,6 +35,7 @@ public class PrescriptionFragment extends ListFragment{
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		setHasOptionsMenu(true);
+		getListView().setFastScrollEnabled(true);
 	}
 	
 	@Override
@@ -50,11 +53,10 @@ public class PrescriptionFragment extends ListFragment{
 			if (AppConstant.isPatientChoose) {
 				intent=new Intent();
 				intent.setClass(getActivity(), AddPrescriptionActivity.class);
-				startActivity(intent);
+				startActivityForResult(intent, 14);
 			}else {
 				Toast.makeText(getActivity(), "请先选择病人!", Toast.LENGTH_SHORT).show();//可根据左边病人listview是否有被选中判断
 			}	
-			
 			break;
 
 		default:
@@ -81,5 +83,16 @@ public class PrescriptionFragment extends ListFragment{
 		intent.putExtra("prescription", item);//将处方实体传到新的界面
 		intent.setClass(getActivity(), PrescriptiondetailActivity.class);
 		startActivity(intent);
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==14) {
+			MainActivity mainActivity=(MainActivity) getActivity();
+			HospitalApp app=(HospitalApp) mainActivity.getApplication();
+			mainActivity.putPrescriptionTask(app.getPatientEntity());
+		}
 	}
 }

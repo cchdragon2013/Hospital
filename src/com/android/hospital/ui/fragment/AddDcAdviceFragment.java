@@ -9,6 +9,7 @@ import com.android.hospital.HospitalApp;
 import com.android.hospital.adapter.DrugAdapter;
 import com.android.hospital.adapter.FreqSpinnerAdapter;
 import com.android.hospital.asyntask.add.InsertDcAdviceTask;
+import com.android.hospital.asyntask.add.PriceTask;
 import com.android.hospital.constant.AppConstant;
 import com.android.hospital.db.ServerDao;
 import com.android.hospital.entity.DataEntity;
@@ -63,6 +64,7 @@ public class AddDcAdviceFragment extends Fragment implements OnClickListener,OnI
 	private List<Map<String, String>> mWayList;
 	private String order_class="";
 	private String order_code="";
+	private String drug_spec="";//药品规格
 	private DcAdviceEntity subEntity;//子医嘱
 	
 	@Override
@@ -240,6 +242,7 @@ public class AddDcAdviceFragment extends Fragment implements OnClickListener,OnI
 		mDosageEdit.setText(drugEntity.dose_per_unit);
 		order_class=drugEntity.drug_indicator;
 		order_code=drugEntity.drug_code;
+		drug_spec=drugEntity.drug_spec;
 	}
 	/**
 	 * 
@@ -318,6 +321,8 @@ public class AddDcAdviceFragment extends Fragment implements OnClickListener,OnI
 			}
 		}
 		entity.doctor_user = app.getLoginName();// 医生登陆账号    	
+        entity.drug_spec=drug_spec;
+		
 		if (mShortTimeBut.isChecked() && mDrugBut.isChecked()) {// 如果为临药，清空频次执行时间
 			butChoose(0, entity);
 		}
@@ -333,6 +338,12 @@ public class AddDcAdviceFragment extends Fragment implements OnClickListener,OnI
 		}
 		String sql=ServerDao.getInsertOrders(entity);
 		new InsertDcAdviceTask(getActivity(), sql).execute();
+		
+		int isDrug=0; 
+		if (!mDrugBut.isChecked()) {
+			isDrug=1;
+		}
+		new PriceTask(getActivity(), entity, isDrug).execute();
 	}
 	
 	/**
@@ -382,6 +393,7 @@ public class AddDcAdviceFragment extends Fragment implements OnClickListener,OnI
 	* @throws
 	 */
 	private void setSubOrders(DcAdviceEntity entity){
+		entity.start_date_time=subEntity.start_date_time;
 		entity.administration=subEntity.administration;
 		entity.frequency=subEntity.frequency;
 		entity.freq_counter=subEntity.freq_counter;
@@ -427,7 +439,6 @@ public class AddDcAdviceFragment extends Fragment implements OnClickListener,OnI
 			administration=mWaySpinner.getItemAtPosition(mWaySpinner.getSelectedItemPosition()).toString();
 			new TimeTask().execute(administration,frequency);
 			break;
-
 		default:
 			break;
 		}

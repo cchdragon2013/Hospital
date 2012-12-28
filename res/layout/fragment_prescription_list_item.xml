@@ -19,27 +19,37 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         
-   
+   <TextView
+        android:id="@+id/prescription_list_item1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+        android:paddingRight="?android:attr/listPreferredItemPaddingRight"
+        android:text="检查类别：超声  检查子类：心脏  检查项目：彩超心脏检查"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
     <TextView
-            android:id="@+id/prescription_list_item1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:textColor="@color/white"
-            android:text="第一行"/>
+        android:id="@+id/prescription_list_item2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+        android:paddingRight="?android:attr/listPreferredItemPaddingRight"
+        android:text="检查类别：超声  检查子类：心脏  检查项目：彩超心脏检查"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+         />
+
     <TextView
-            android:id="@+id/prescription_list_item2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:textColor="@color/white"
-            android:text="第二行"/>
-    <TextView
-            android:id="@+id/prescription_list_item3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:textColor="@color/blue"
-            android:text="第三行"/>
+        android:id="@+id/prescription_list_item3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:paddingLeft="?android:attr/listPreferredItemPaddingLeft"
+        android:paddingRight="?android:attr/listPreferredItemPaddingRight"
+        android:text="检查类别：超声  检查子类：心脏  检查项目：彩超心脏检查"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall" 
+        android:textColor="@color/cornflowerblue"
+        />
 
 </LinearLayout>

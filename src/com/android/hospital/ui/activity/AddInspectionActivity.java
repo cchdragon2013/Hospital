@@ -82,7 +82,9 @@ public class AddInspectionActivity extends Activity implements OnClickListener{
                 public void onClick(DialogInterface dialog, int whichButton) {
 
                     /* User clicked OK so do some stuff */
-                	new InsertInspectionTask().execute();
+                	if (leftFm.validate()) {
+                		new InsertInspectionTask().execute();
+					}   
                 }
             })
             .setNegativeButton("È¡Ïû", new DialogInterface.OnClickListener() {
@@ -135,7 +137,9 @@ public class AddInspectionActivity extends Activity implements OnClickListener{
 		protected void onPostExecute(String result) {
 			// TODO Auto-generated method stub
 			mDialog.cancel();
-			AddInspectionActivity.this.finish();
+			Intent intent=new Intent();
+			setResult(13, intent);
+			finish();
 		}
 	}
 }

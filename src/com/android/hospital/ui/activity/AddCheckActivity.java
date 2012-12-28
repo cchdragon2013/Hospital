@@ -80,7 +80,9 @@ public class AddCheckActivity extends Activity implements OnClickListener{
                 public void onClick(DialogInterface dialog, int whichButton) {
 
                     /* User clicked OK so do some stuff */
-                	new InsertCheckTask().execute("insert");
+                	if (leftFm.validate()) {
+                		new InsertCheckTask().execute("insert");
+					}      
                 }
             })
             .setNegativeButton("È¡Ïû", new DialogInterface.OnClickListener() {
@@ -132,7 +134,9 @@ public class AddCheckActivity extends Activity implements OnClickListener{
 		protected void onPostExecute(String result) {
 			// TODO Auto-generated method stub
 			mDialog.cancel();
-			AddCheckActivity.this.finish();
+			Intent intent=new Intent();
+			setResult(12, intent);
+			finish();
 		}
 	}
 }

@@ -40,7 +40,9 @@ public class PrescriptionTask extends  BaseAsyncTask{
 		if (arrayList.size()!=0) {
 			PrescriptionAdapter adapter=new PrescriptionAdapter(fragment.getActivity(), arrayList);
 			fragment.setListAdapter(adapter);
+			if (fragment.isAdded()) {
+				fragment.setSelection(adapter.getCount()-1);
+			}
 		}
 	}
-
 }

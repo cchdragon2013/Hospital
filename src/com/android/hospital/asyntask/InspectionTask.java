@@ -50,6 +50,9 @@ public class InspectionTask extends BaseAsyncTask{
 		if (arrayList.size()!=0) {
 			InspectionAdapter adapter=new InspectionAdapter(fragment.getActivity(), arrayList);
 			fragment.setListAdapter(adapter);
+			if (fragment.isAdded()) {
+				fragment.setSelection(adapter.getCount()-1);
+			}
 		}
 	}
 
