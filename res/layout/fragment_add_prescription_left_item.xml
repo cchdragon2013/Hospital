@@ -131,7 +131,6 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceListItemSmall"
                 android:minHeight="?android:attr/listPreferredItemHeightSmall"
-                android:entries="@array/spinner_zi"
                 android:layout_weight="2"
             />
 
@@ -150,7 +149,6 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceListItemSmall"
                 android:minHeight="?android:attr/listPreferredItemHeightSmall"
-                android:entries="@array/spinner_zi"
                 android:layout_weight="2"
             />
 
