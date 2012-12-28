@@ -85,7 +85,7 @@ public class UpdateDBTask extends BaseAsyncTask{
 	* @throws
 	 */
 	private void startDrugOrNonDrugTask(){
-		String drugSql="select * from input_drug_lists";
+		String drugSql = "select * from input_drug_lists where storage in('3103','3102')";
 		String nondrugSql="select * from v_clinic_name_dict";
 		ArrayList<DataEntity> dataList=WebServiceHelper.getWebServiceData(drugSql);
 		drugList=DrugEntity.init(dataList);
@@ -131,7 +131,7 @@ public class UpdateDBTask extends BaseAsyncTask{
 	 */
 	private void startFreqAndWayTask(){
 		String freqSql = "select serial_no,freq_desc,freq_counter,freq_interval,freq_interval_units from perform_freq_dict";
-		String waySql = "select administration_name,serial_no,administration_code,input_code from administration_dict where inp_outp_flag ='1' or inp_outp_flag is null";
+		String waySql = "select administration_name,serial_no,administration_code,input_code from administration_dict where inp_outp_flag ='1' or inp_outp_flag is null order by  serial_no";
 		ArrayList<DataEntity> dataList=WebServiceHelper.getWebServiceData(waySql);
 		wayList=new ArrayList<Map<String,String>>();
 		Map<String, String> mapNull=new HashMap<String, String>();

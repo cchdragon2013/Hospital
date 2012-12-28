@@ -120,6 +120,8 @@ public class AddPrescriptionFragment extends BaseFragment implements OnClickList
 			if (numNull()) {
 				return true;
 			}
+		}else {
+			return true;
 		}
 		return false;
 	}
