@@ -63,6 +63,7 @@ public class AddPrescriptionFragment extends BaseFragment implements OnClickList
 		app=(HospitalApp) getActivity().getApplication();
 		fm=(SeachPrescriptionFragment) getActivity().getFragmentManager().findFragmentByTag("searchfm");
 		new WestDrugTaskStep1().execute();//获取西药任务
+		new DoctorInCharge().execute();//获取病人主治医生
 	}
 	
 	@Override
@@ -310,7 +311,12 @@ public class AddPrescriptionFragment extends BaseFragment implements OnClickList
 		}
 	}
 	/**
-	 * 获取病人主治医生的用户名
+	 * 
+	* @ClassName: DoctorInCharge 
+	* @Description: TODO(获取病人主治医生的用户名) 
+	* @author lll 
+	* @date 2012-12-28 
+	*
 	 */
 	private class DoctorInCharge extends AsyncTask<List<String>, Void, String>{
 

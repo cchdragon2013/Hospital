@@ -3,6 +3,8 @@ package com.android.hospital.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.android.hospital.util.DebugUtil;
+
 
 
 /**
@@ -80,8 +82,9 @@ public class InspectionEntity implements Serializable{
 		}
 		//将申请序号相同的项目名称合并在一起
 		ArrayList<InspectionEntity> list_end=new ArrayList<InspectionEntity>();
+		
 		int k=0;
-		for (int j = 0; j < list.size(); j++) {
+		for (int j = 0; j < 2; j++) {
 			if (k!=0){
 				String  test_n1=list.get(j).test_no;  
 				String  test_n0=list.get(j-1).test_no; 
@@ -89,13 +92,15 @@ public class InspectionEntity implements Serializable{
 					list.get(k-1).item_name=list.get(k-1).item_name + '('+list.get(j).item_no+')'+list.get(j).item_name;
 					list.set(k-1, list.get(k-1));
 				}else{
+					list_end.add(list.get(k-1));
 					list.get(j).item_name ='('+list.get(j).item_no+')'+list.get(j).item_name;
-					list_end.add(list.get(j));
+					DebugUtil.debug("选中8888888888888的为---->"+list.get(j));
+//					list_end.add(list.get(j));
 					k++;
 				}
 			}else{
 				list.get(j).item_name ='('+list.get(j).item_no+')'+list.get(j).item_name;
-				list_end.add(list.get(j));
+//				list_end.add(list.get(j));
 				k++;
 			}
 		}
