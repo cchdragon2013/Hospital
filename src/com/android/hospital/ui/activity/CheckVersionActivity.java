@@ -155,7 +155,7 @@ public class CheckVersionActivity extends Activity {
 		protected Void doInBackground(Void... params) {
 			// TODO Auto-generated method stub
 			try {
-				down_file("http://"+"192.168.0.40"+":"+"8888"+"/WebServiceServer/download/Hospital.apk",//是否需更改apk名
+				down_file("http://"+"192.168.0.10"+":"+"8888"+"/WebServiceServer/download/Hospital.apk",//是否需更改apk名
 						"/sdcard/");
 			} catch (ClientProtocolException e) {
 				e.printStackTrace();
@@ -178,7 +178,7 @@ public class CheckVersionActivity extends Activity {
 			aq = new AQuery(CheckVersionActivity.this.getApplicationContext());
 			AjaxCallback<String> callback = new AjaxCallback<String>();
 			callback.type(String.class).url(
-					"http://"+"192.168.0.40"+":"+"8888"+"/WebServiceServer/servlet/AndroidVersionServlet");
+					"http://"+"192.168.0.10"+":"+"8888"+"/WebServiceServer/servlet/AndroidVersionServlet");
 			aq.sync(callback);
 			String str = callback.getResult();
 			if (str!=null){

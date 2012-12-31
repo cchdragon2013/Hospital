@@ -33,7 +33,9 @@ import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 /**
@@ -85,7 +87,7 @@ public class DoctorAdviceFragment extends ListFragment {
 			}
 		});
 	}
-	
+		
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		menu.add(Menu.NONE, Menu.FIRST, 0, "新增医嘱")
@@ -149,9 +151,12 @@ public class DoctorAdviceFragment extends ListFragment {
 	public boolean onContextItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		ContextMenuInfo menuInfo = (ContextMenuInfo) item.getMenuInfo();
+		AdapterContextMenuInfo id=(AdapterContextMenuInfo) menuInfo; 
+		int position=id.position;//第几项
+		DebugUtil.debug("id-->"+id.position);
 		switch (item.getItemId()) {
 		case 0:
-			 Toast.makeText(getActivity(), "111111111111", 200).show(); 
+			 DcAdviceAdapter adapter=(DcAdviceAdapter) getListAdapter();
 			return true;
 
 		default:

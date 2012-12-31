@@ -31,6 +31,7 @@
         <activity android:name=".AddInspectionActivity" android:theme="@style/HospitalTheme"/>
         <activity android:name=".AddPrescriptionActivity" android:theme="@style/HospitalTheme"/>
         <activity android:name=".CheckdetailActivity" android:theme="@style/HospitalTheme"/>
+        <activity android:name=".CheckVersionActivity" android:theme="@style/HospitalTheme"/>
         <service android:enabled="true" android:name="com.android.hospital.service.MyService" />
         <!-- #####################JUnit测试需要的权限标签 #####################-->
 		<uses-library android:name="android.test.runner" />

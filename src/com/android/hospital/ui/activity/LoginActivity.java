@@ -19,6 +19,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
@@ -192,5 +194,31 @@ public class LoginActivity extends Activity implements OnClickListener{
 				finish();
 			}
 		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+        MenuItem actionItem = menu.add(Menu.NONE, Menu.FIRST, 0, "°æ±¾¸üÐÂ");
+
+        // Items that show as actions should favor the "if room" setting, which will
+        // prevent too many buttons from crowding the bar. Extra items will show in the
+        // overflow area.
+        actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        // Items that show as actions are strongly encouraged to use an icon.
+        // These icons are shown without a text description, and therefore should
+        // be sufficiently descriptive on their own.
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		Toast.makeText(this, "Selected Item: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+		Intent intentCheckVersion = new Intent();
+		intentCheckVersion.setClass(LoginActivity.this,
+				CheckVersionActivity.class);
+		startActivity(intentCheckVersion);
+		return true;
 	}
 }

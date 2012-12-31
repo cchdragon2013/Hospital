@@ -61,7 +61,17 @@ public class DcAdviceAdapter extends BaseAdapter{
 		mList.clear();
 	    notifyDataSetChanged();
 	}
-	
+	/**
+	 * 
+	* @Title: getList 
+	* @Description: TODO(得到所有的医嘱集合) 
+	* @param     设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	public ArrayList<DcAdviceEntity> getList(){
+		return mList;
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
