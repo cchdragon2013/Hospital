@@ -42,6 +42,7 @@ public class PrescriptionFragment extends ListFragment{
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		menu.add(Menu.NONE, Menu.FIRST, 0, "新增处方")
         .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.addSubMenu(1, Menu.FIRST+1, 1, "按时间查询");
 	}
 	
 	@Override
@@ -58,7 +59,9 @@ public class PrescriptionFragment extends ListFragment{
 				Toast.makeText(getActivity(), "请先选择病人!", Toast.LENGTH_SHORT).show();//可根据左边病人listview是否有被选中判断
 			}	
 			break;
-
+		case Menu.FIRST+1:
+			
+			break;
 		default:
 			break;
 		}

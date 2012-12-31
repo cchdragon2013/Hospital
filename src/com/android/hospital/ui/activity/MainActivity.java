@@ -24,6 +24,7 @@ import com.android.hospital.ui.fragment.DoctorAdviceFragment;
 import com.android.hospital.ui.fragment.InspectionFragment;
 import com.android.hospital.ui.fragment.LeftListFragment;
 import com.android.hospital.ui.fragment.PrescriptionFragment;
+import com.android.hospital.ui.fragment.SignsLifeFragment;
 import com.android.hospital.util.DebugUtil;
 
 import android.app.ActionBar;
@@ -120,9 +121,9 @@ public class MainActivity extends Activity implements AsyncTaskCallback<PatientE
 			     .setTabListener(new TabListener<PrescriptionFragment>(
 	                        this, "prescription", PrescriptionFragment.class)));
 		actionBar.addTab(actionBar.newTab()
-			     .setText("ÌåÎÂÍ¼")
-			     .setTabListener(new TabListener<DoctorAdviceFragment>(
-	                        this, "simple", DoctorAdviceFragment.class)));
+			     .setText("ÉúÃüÌåÕ÷")
+			     .setTabListener(new TabListener<SignsLifeFragment>(
+	                        this, "signslife", SignsLifeFragment.class)));
 	}
 	
 	

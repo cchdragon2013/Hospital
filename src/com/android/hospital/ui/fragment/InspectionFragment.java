@@ -48,6 +48,7 @@ public class InspectionFragment extends ListFragment{
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		menu.add(Menu.NONE, Menu.FIRST, 0, "新增检验")
         .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.addSubMenu(1, Menu.FIRST+1, 1, "按时间查询");
 	}
 	
 	@Override
