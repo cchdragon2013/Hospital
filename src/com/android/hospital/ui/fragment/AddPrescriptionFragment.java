@@ -54,6 +54,7 @@ public class AddPrescriptionFragment extends BaseFragment implements OnClickList
 	private PrescriptionLeftItemAdapter mAdapter;
 	private int drugFlag=0;//0为中药，1为西药
 	private ArrayList<DrugEntity> insertList;//需要插入的集合 
+	private String doctor_user;//病人主治医生
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class AddPrescriptionFragment extends BaseFragment implements OnClickList
 		app=(HospitalApp) getActivity().getApplication();
 		fm=(SeachPrescriptionFragment) getActivity().getFragmentManager().findFragmentByTag("searchfm");
 		new WestDrugTaskStep1().execute();//获取西药任务
+		new DoctorInCharge().execute();//获取病人主治医生
 	}
 	
 	@Override
@@ -308,6 +310,30 @@ public class AddPrescriptionFragment extends BaseFragment implements OnClickList
             mWestDrugList=result;
 		}
 	}
+	/**
+	 * 
+	* @ClassName: DoctorInCharge 
+	* @Description: TODO(获取病人主治医生的用户名) 
+	* @author lll 
+	* @date 2012-12-28 
+	*
+	 */
+	private class DoctorInCharge extends AsyncTask<List<String>, Void, String>{
+
+		@Override
+		protected String doInBackground(List<String>... params) {
+			StringBuffer buffer=new StringBuffer();
+			buffer.append("select  user_name from staff_dict where  name='"+app.getPatientEntity().doctor_in_charge+"'");
+			ArrayList<DataEntity> dataList=WebServiceHelper.getWebServiceData(buffer.toString());
+			String doctor=dataList.get(0).get("user_name");
+			return doctor;
+		}
+		protected void onPostExecute(String result) {
+			// TODO Auto-generated method stub
+            doctor_user=result;
+		}
+	}
+	
 	
 	/**
 	 * 
@@ -405,7 +431,7 @@ public class AddPrescriptionFragment extends BaseFragment implements OnClickList
 		prescriptionBuffer.append("'"+usage).append("',");
 		prescriptionBuffer.append("'"+binding_presc_title).append("',");
 		prescriptionBuffer.append("'"+discharge_taking_indicator).append("',");
-		prescriptionBuffer.append("'"+"doctor_user").append("',");//主治医生代码
+		prescriptionBuffer.append("'"+doctor_user).append("',");//主治医生代码
 		prescriptionBuffer.append("'"+decoction).append("',");
 		prescriptionBuffer.append("'"+"").append("',");
 		prescriptionBuffer.append("'"+app.getPatientEntity().diagnosis).append("')");
@@ -635,3 +661,5 @@ public class AddPrescriptionFragment extends BaseFragment implements OnClickList
 		return false;
 	}
 }
+
+
